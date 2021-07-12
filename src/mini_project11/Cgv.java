@@ -13,6 +13,16 @@ public class Cgv {
   int Gtotal = 0;  
   static Scanner sc = new Scanner(System.in);
 
+  public int floor; //층=행 3층
+  public int room; 
+  public String[][] name = new String[3][5];
+  String title;
+  String time;
+  String date;
+  int ticketPrice;
+  String seat;
+  String payDate="ddd";
+
   public static void main(String[] args) {
 
     System.out.println("\t\t\tC G V");
@@ -21,22 +31,13 @@ public class Cgv {
 
     Cgv a = new Cgv();
     try { 
-      while (true) {
-        int sel= 9;
-        System.out.println("1.영화제목  2.날짜 3.시간 4.좌석 5.결제 6.결제일 9.종료"); 
-        sel = Integer.parseInt(sc.nextLine());
-
-        switch (sel) {
-          case 1: a.dbConnect(); break;
-          case 2: a.dbSelect(); break;
-          case 3: a.getTitle(); break;
-          case 4: a.getInsert(); break;
-          case 9: 
-          default :
-            System.out.println("번호를 잘못 입력하셨습니다.");
-            break;
-        }
-      }
+      a.dbConnect();
+      a.dbSelect(); 
+      a.getTitle(); 
+      a.getDate();
+      a.getTime();
+      a.getSeat();
+      a.getInsert();
     }catch(Exception ex){ }
   }
 
@@ -56,53 +57,162 @@ public class Cgv {
       msg ="select * from cinema";
       ResultSet rs = ST.executeQuery(msg);
       while(rs.next()==true) {
-        String utitle = rs.getString("title");
-        String udate = rs.getString("mdate");
-        String utime = rs.getString("time");
-        int uprice = rs.getInt("price");
-        String useat = rs.getString("seat");
-        String upaydate = rs.getString("paydate");
-        System.out.println(utitle +"\t" + udate+"\t" + utime+"\t" + uprice+"\t" + useat+"\t"+upaydate);
+        String stitle = rs.getString("title");
+        String sdate = rs.getString("mdate");
+        String stime = rs.getString("time");
+        int sticketPrice = rs.getInt("price");
+        String sseat = rs.getString("seat");
+        String spaydate = rs.getString("paydate");
+        System.out.println(stitle +"\t" + sdate+"\t" + stime+"\t" + sticketPrice+"\t" + sseat+"\t"+spaydate);
 
       }
     }catch(Exception ex) { System.out.println("에러이유 " + ex);} 
   }
 
   public void getInsert() {
-    ST=CN.createStatement();
-    ResultSet rs = ST.executeQuery(msg);
-    System.out.println("변경하실 영화제목을 입력하세요:");
-    String utitle=sc.nextLine();
-    System.out.println("변경하실 날짜를 입력하세요:");
-    String udate=sc.nextLine();
-    System.out.println("변경하실 시간을 입력하세요:");
-    String utime=sc.nextLine();
-    System.out.println("변경하실 좌석을 입력하세요:");
-    string useat=sc.nextLine();
-    msg="insert into cinema(utitle,) values(
+    try {
+      System.out.println("성공!");
+      msg="insert into cinema values('"+title+"','"+date+"','"+time+"',"+ticketPrice+",'"+seat+"','"+payDate+"')";
+      //ST=CN.createStatement();
+      int rs = ST.executeUpdate(msg);
+    }catch (Exception e) {System.out.println("에러이유:"+ e);}
   }
+
+
+
+
+  /* msg="insert into test(code,name,title,wdate,cnt) values("+a+" , '"+b+"' , '"+c+"' , sysdate , 0)";        
+  System.out.println(msg);
+
+
+  //4번째 서버에서 실행 executeUpdate("insert~~")
+  int OK = ST.executeUpdate(msg);
+  if(OK>0) {
+    System.out.println(a+ "코드 저장 성공했습니다");
+  }else { System.out.println(a+ "코드 저장 실패했습니다");}
+
+}catch(Exception ex) {System.out.println("에러이유" +ex);};
+
+}
+   */
+
+
+
   public void getTitle() {
-    System.out.println();
-    System.out.println("1.괴물 2.어벤져스:엔드게임 3.극한직업");
-    System.out.println("상영하실 영화를 입력하세요: ");
-    String movie =sc.nextLine();
-    System.out.println(movie+" 선택하셨습니다");
-
+    try {
+      /*ST=CN.createStatement();
+      RS=ST.executeQuery(msg);
+      msg="insert into"*/
+      System.out.println("오라클 드라이브및 서버연결성공");
+      System.out.println();
+      System.out.println("1.괴물 2.어벤져스:엔드게임 3.극한직업");
+      System.out.println("상영하실 영화를 입력하세요: ");
+      title =sc.nextLine();
+      System.out.println( title +" 선택하셨습니다");
+    }catch(Exception ex){System.out.println("error =" + ex);}
   }
 
-  /*public void getDate() {
-
+  public void getDate() {
+    try {
+      System.out.print("19일 ~ 25일 중에 입력해 주세요(예: 19)>> ");
+      Scanner sc = new Scanner(System.in);
+      date = sc.nextLine();
+      System.out.println("7월 "+date+"일로 예약 완료");
+    } catch(Exception ex) { System.out.println("error = " + ex);} 
   }
 
-  public void getTime() {
+  void getTime(){
+
+    Scanner sc = new Scanner(System.in);
+
+    System.out.println("[시간대 선택 - 조조 / 일반 / 심야 ] ");
+    System.out.println("조조 할인 시간 (10,000원) : [1] AM  8:00 - 10:00 [2] AM 10:00 - 12:00 ");
+    System.out.println("일반 상영 시간 (14,000원) : [3] PM  2:00 -  4:00 [4] PM  4:00 -  6:00 ");    
+    System.out.println("심야 상영 시간 (12,000원) : [5] PM  8:00 - 10:00 [6] PM 10:00 - 12:00 ");
+    System.out.println("시간을 선택해주세요. 1 ~ 6 ");
+
+
+
+    int timeSelect = Integer.parseInt(sc.nextLine());
+
+
+    switch(timeSelect) {
+      case 1:
+        time = "AM 8:00 - 10:00";
+        ticketPrice = 10000;
+        break;
+      case 2:
+        time = "PM 10:00 - 12:00";
+        ticketPrice = 10000;
+        break;
+      case 3:
+        time = "PM 2:00- 4:00";
+        ticketPrice = 14000;
+        break;
+      case 4:
+        time = "PM 4:00 - 6:00";
+        ticketPrice = 14000;
+        break;
+      case 5:
+        time = "PM 8:00 - 10:00";
+        ticketPrice = 12000;
+        break;
+      case 6:  
+        time = "PM 10:00 - 12:00";
+        ticketPrice = 12000;
+        break;
+      default:
+        System.out.println("올바른 시간을 선택해주세요.");
+        break;
+
+
+    }
+    System.out.println("선택한 시간이 맞습니까? Y / N ");
+    System.out.println("시간 : "+time+" , 티켓비용 : "+ticketPrice);
+
+
 
   }
 
   public void getSeat() {
 
-  }
+    try {
+      System.out.print("무슨열 선택하시겠습니까?(a~f층까지)>>> ");
+      floor = Integer.parseInt(sc.nextLine());
+      if(floor <1  || floor >6) {
+        System.out.println("해당 열은 존재하지 않습니다");
+      }
 
+      System.out.print("몇 번을 선택 하시겠습니까?(1~10번까지)>>> ");
+      room = Integer.parseInt(sc.nextLine());
+      if(room < 1 || room >10) {
+        System.out.println("해당 번호는 존재하지 않습니다");
+      }
+
+      if(name[floor-1][room-1] == null) {
+        System.out.print("이름을 입력하세요>>> ");
+        name[floor-1][room-1] = sc.nextLine();
+
+        System.out.println("객실 예약 완료");
+      }else {
+        System.out.println("이미 예약된 객실입니다");
+      }
+
+      System.out.println("\n\t[ list ]");
+      for(int i = 0; i < 6; i++){
+        for(int j = 0; j < 10; j++){
+          if(name[i][j] == null) {
+            System.out.print( " " + (i+1)+"0"+(j+1) +"좌석"+"□\t" +"\t"); 
+          }else {
+            System.out.print( " " + (i+1)+"0"+(j+1) +"좌석"+"■\t" + name[i][j] + "\t"); 
+          }
+        } //j end
+        System.out.println();
+      }//for i end
+      seat=Integer.toString(floor)+Integer.toString(room);
+    }catch (Exception e) {System.out.println("에러이유:"+ e);}//end
+  }
   public void pay() {
 
-  }*/
+  }
 }
