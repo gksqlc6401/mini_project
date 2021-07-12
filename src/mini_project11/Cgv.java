@@ -15,7 +15,7 @@ public class Cgv {
 
   public int floor; //층=행 3층
   public int room; 
-  public String[][] name = new String[3][5];
+  public String[][] name = new String[6][10];
   String title;
   String time;
   String date;
@@ -131,10 +131,7 @@ public class Cgv {
     System.out.println("심야 상영 시간 (12,000원) : [5] PM  8:00 - 10:00 [6] PM 10:00 - 12:00 ");
     System.out.println("시간을 선택해주세요. 1 ~ 6 ");
 
-
-
     int timeSelect = Integer.parseInt(sc.nextLine());
-
 
     switch(timeSelect) {
       case 1:
@@ -164,21 +161,26 @@ public class Cgv {
       default:
         System.out.println("올바른 시간을 선택해주세요.");
         break;
-
-
     }
     System.out.println("선택한 시간이 맞습니까? Y / N ");
     System.out.println("시간 : "+time+" , 티켓비용 : "+ticketPrice);
-
-
-
   }
 
   public void getSeat() {
 
     try {
-      System.out.print("무슨열 선택하시겠습니까?(a~f층까지)>>> ");
-      floor = Integer.parseInt(sc.nextLine());
+      System.out.print("무슨열 선택하시겠습니까?(A~F층까지)>>> ");
+      String row = sc.nextLine();
+
+      switch(row) {
+        case "A" : floor=1; break;
+        case "B" : floor=2; break;
+        case "C" : floor=3; break;
+        case "D" : floor=4; break;
+        case "E" : floor=5; break;
+        case "F" : floor=6; break;
+        default : System.out.println("다시입력해주세요"); break;
+      }
       if(floor <1  || floor >6) {
         System.out.println("해당 열은 존재하지 않습니다");
       }
@@ -197,22 +199,24 @@ public class Cgv {
       }else {
         System.out.println("이미 예약된 객실입니다");
       }
+      System.out.println("\n\t\t\t\t\t\t\t\t\t\t[ S C R E E N ]");
 
-      System.out.println("\n\t[ list ]");
+      String a= "ABCDEF";
       for(int i = 0; i < 6; i++){
         for(int j = 0; j < 10; j++){
           if(name[i][j] == null) {
-            System.out.print( " " + (i+1)+"0"+(j+1) +"좌석"+"□\t" +"\t"); 
+
+
+            System.out.print(" " + (a.charAt(i))+(j+1) +"좌석"+"□\t" +"\t"); 
           }else {
-            System.out.print( " " + (i+1)+"0"+(j+1) +"좌석"+"■\t" + name[i][j] + "\t"); 
+            System.out.print( " " + (a.charAt(i))+(j+1) +"좌석"+"■\t" + name[i][j] + "\t"); 
           }
         } //j end
         System.out.println();
       }//for i end
-      seat=Integer.toString(floor)+Integer.toString(room);
+      seat=row+Integer.toString(room);
     }catch (Exception e) {System.out.println("에러이유:"+ e);}//end
   }
   public void pay() {
-
   }
 }
