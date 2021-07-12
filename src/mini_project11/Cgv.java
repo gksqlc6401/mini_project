@@ -13,14 +13,6 @@ public class Cgv {
   int Gtotal = 0;  
   static Scanner sc = new Scanner(System.in);
 
-  public void dbConnect() {
-    try {
-      Class.forName("oracle.jdbc.driver.OracleDriver"); //오라클드라이브로드
-      CN=DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe","system","1234");
-      System.out.println("오라클 드라이브및 서버연결성공");   
-    }catch(Exception ex){System.out.println("error =" + ex);}
-  }//end
-
   public static void main(String[] args) {
 
     System.out.println("\t\t\tC G V");
@@ -38,7 +30,7 @@ public class Cgv {
           case 1: a.dbConnect(); break;
           case 2: a.dbSelect(); break;
           case 3: a.getTitle(); break;
-          // case 4: a.getDate(); break;
+          case 4: a.getInsert(); break;
           case 9: 
           default :
             System.out.println("번호를 잘못 입력하셨습니다.");
@@ -46,14 +38,16 @@ public class Cgv {
         }
       }
     }catch(Exception ex){ }
-    /*  a.dbConnect();
-    a.dbSelect();
-    a.getTitle();
-    a.getDate();
-    a.getTime();
-    a.getSeat();
-    a.pay();*/
   }
+
+  public void dbConnect() {
+    try {
+      Class.forName("oracle.jdbc.driver.OracleDriver"); //오라클드라이브로드
+      CN=DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe","system","1234");
+      System.out.println("오라클 드라이브및 서버연결성공");   
+    }catch(Exception ex){System.out.println("error =" + ex);}
+  }//end
+
   public void dbSelect() {
     try {
       System.out.println("112233전체 데이터출력중입니다.");
@@ -74,6 +68,19 @@ public class Cgv {
     }catch(Exception ex) { System.out.println("에러이유 " + ex);} 
   }
 
+  public void getInsert() {
+    ST=CN.createStatement();
+    ResultSet rs = ST.executeQuery(msg);
+    System.out.println("변경하실 영화제목을 입력하세요:");
+    String utitle=sc.nextLine();
+    System.out.println("변경하실 날짜를 입력하세요:");
+    String udate=sc.nextLine();
+    System.out.println("변경하실 시간을 입력하세요:");
+    String utime=sc.nextLine();
+    System.out.println("변경하실 좌석을 입력하세요:");
+    string useat=sc.nextLine();
+    msg="insert into cinema(utitle,) values(
+  }
   public void getTitle() {
     System.out.println();
     System.out.println("1.괴물 2.어벤져스:엔드게임 3.극한직업");
