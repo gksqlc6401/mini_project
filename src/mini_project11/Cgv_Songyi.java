@@ -8,16 +8,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-public class Cgv3 {
+public class Cgv_Songyi {
   Connection CN=null; //DB서버연결정보 서버ip주소 계정id,pwd
   Statement ST=null;  //ST=CN.createStatement()명령어생성 삭제,신규등록,조회하라
   ResultSet RS=null;  //select조회결과값 전체데이터를 기억합니다
   String msg="";
   int Gtotal = 0;  
 
-  public class SeatInfo{
+  public class SeatInfo{//seat정보를 담을 클래스 생성
 
-    String seat;
+    public int arrayfloor; //층=행 3층
+    public int arrayroom; 
 
   }
 
@@ -28,6 +29,7 @@ public class Cgv3 {
   String time;
   String date;
   int ticketPrice;
+  String seat;
 
   String payDate;
   public int atitle;
@@ -35,16 +37,17 @@ public class Cgv3 {
   public int atime;
 
   static Scanner sc = new Scanner(System.in);
+  SeatInfo[][][] arrayTest = new SeatInfo[3][7][6];//seat정보를 담을 배열 생성
 
 
   public static void main(String[] args) {
 
-    SeatInfo[][][] arrayTest = new SeatInfo[3][7][6];
+
     System.out.println("\t\t\tC G V");
     System.out.println("\t\t영화 예매 프로그램"); 
     System.out.println();
 
-    Cgv3 a = new Cgv3();
+    Cgv_Songyi a = new Cgv_Songyi();
     try { 
       loop: while(true) {
         System.out.print("[1.예매]   [2.전체 예매현황]   [9.종료]");
@@ -244,6 +247,8 @@ public class Cgv3 {
         } //j end
         System.out.println();
       }//for i end
+
+      //배열로 선언한 부분 ! 인스턴스 변수로 선언 및 관리
       seat=row+Integer.toString(room);
     }catch (Exception e) {System.out.println("에러이유:"+ e);}//end
   }
@@ -284,6 +289,12 @@ public class Cgv3 {
           msg="insert into cinema values('"+title+"','"+date+"','"+time+"',"+ticketPrice+",'"+seat+"','"+payDate+"')";
           ST=CN.createStatement();
           int rs = ST.executeUpdate(msg);
+
+          //arrayTest배열에 floor, room 정보 저장 (영화관 배열)
+          arrayTest[atitle][adate][atime].arrayfloor = floor;
+          arrayTest[atitle][adate][atime].arrayroom = room;
+
+
           return;
         }else if(ans.equals("N")){
           System.out.println("처음으로 돌아가시겠습니까?");
