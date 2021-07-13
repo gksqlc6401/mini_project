@@ -3,6 +3,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.FieldPosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Cgv {
@@ -21,7 +24,7 @@ public class Cgv {
   String date;
   int ticketPrice;
   String seat;
-  String payDate="ddd";
+  String payDate;
 
   public static void main(String[] args) {
 
@@ -31,13 +34,25 @@ public class Cgv {
 
     Cgv a = new Cgv();
     try { 
-      a.dbConnect();
-      // a.dbSelect(); 
-      a.getTitle(); 
-      a.getDate();
-      a.getTime();
-      a.getSeat();
-      a.getInsert();
+      loop: while(true) {
+        System.out.print("[1.예매]   [2.전체 예매현황]   [9.종료]");
+        int sel = 9;
+        sel = Integer.parseInt(sc.nextLine());
+        a.dbConnect();
+
+        switch (sel) {
+          case 1:
+            a.getTitle(); 
+            a.getDate();
+            a.getTime();
+            a.getSeat();
+            a.pay(); break;
+          case 2:
+            a.dbSelect(); break;
+          case 9: System.out.println("영화표 예매 프로그램 종료하겠습니다."); break loop;
+          default : System.out.println("잘못입력하셨습니다."); continue;
+        }
+      }
     }catch(Exception ex){ }
   }
 
@@ -69,56 +84,47 @@ public class Cgv {
     }catch(Exception ex) { System.out.println("에러이유 " + ex);} 
   }
 
-  public void getInsert() {
-    try {
-      System.out.println("성공!");
-      msg="insert into cinema values('"+title+"','"+date+"','"+time+"',"+ticketPrice+",'"+seat+"','"+payDate+"')";
-      //ST=CN.createStatement();
-      int rs = ST.executeUpdate(msg);
-    }catch (Exception e) {System.out.println("에러이유:"+ e);}
-  }
-
-
-
-
-  /* msg="insert into test(code,name,title,wdate,cnt) values("+a+" , '"+b+"' , '"+c+"' , sysdate , 0)";        
-  System.out.println(msg);
-
-
-  //4번째 서버에서 실행 executeUpdate("insert~~")
-  int OK = ST.executeUpdate(msg);
-  if(OK>0) {
-    System.out.println(a+ "코드 저장 성공했습니다");
-  }else { System.out.println(a+ "코드 저장 실패했습니다");}
-
-}catch(Exception ex) {System.out.println("에러이유" +ex);};
-
-}
-   */
-
-
-
   public void getTitle() {
     try {
-      /*ST=CN.createStatement();
-      RS=ST.executeQuery(msg);
-      msg="insert into"*/
-      System.out.println();
-      System.out.println("1.괴물     2.어벤져스:엔드게임     3.극한직업\n");
-      System.out.print("상영하실 영화를 입력하세요: ");
-      title =sc.nextLine();
-      System.out.println();
-      System.out.println( title +" 선택하셨습니다");
+      while(true) {
+        System.out.println();
+        System.out.println("[1.괴물]     [2.어벤져스:엔드게임]     [3.극한직업]\n");
+        System.out.print("상영하실 영화번호를 입력하세요: ");
+        title =sc.nextLine();
+        System.out.println();
+        switch(title) {
+          case "1": title="괴물"; break;
+          case "2": title="어벤져스:엔드게임"; break;
+          case "3": title="극한직업"; break;
+          default : System.out.println("다시선택해주세요"); continue;
+        }
+        System.out.println();
+        System.out.println( title +" 선택하셨습니다");
+        break;
+      }
     }catch(Exception ex){System.out.println("error =" + ex);}
   }
 
   public void getDate() {
     try {
-      System.out.println();
-      System.out.print("19일 ~ 25일 중에 입력해 주세요(예: 19)>> ");
-      date = sc.nextLine();
-      System.out.println();
-      System.out.println("7월 "+date+"일로 예약 완료");
+      while(true) {
+        System.out.println();
+        System.out.print("19일 ~ 25일 중에 입력해 주세요(예: 19)>> \n");
+        date = sc.nextLine();
+        switch(date) {
+          case "19": date="19일"; break;
+          case "20": date="20일"; break;
+          case "21": date="21일"; break;
+          case "22": date="22일"; break;
+          case "23": date="23일"; break;
+          case "24": date="24일"; break;
+          case "25": date="25일"; break;
+          default: System.out.println("다시입력해주세요\n"); continue;
+        }
+        System.out.println();
+        System.out.println("7월 "+date+"로 예약 완료\n");
+        break;
+      }
     } catch(Exception ex) { System.out.println("error = " + ex);} 
   }
 
@@ -136,7 +142,7 @@ public class Cgv {
 
         int timeSelect = Integer.parseInt(sc.nextLine());
         switch (timeSelect) {
-          case 1:
+          case 1 :
             time = "AM 8:00 - 10:00";
             ticketPrice = 10000;
             break;
@@ -227,6 +233,50 @@ public class Cgv {
       seat=row+Integer.toString(room);
     }catch (Exception e) {System.out.println("에러이유:"+ e);}//end
   }
+
   public void pay() {
+
+    try {
+      while(true) {
+        System.out.print("결제 하시겠습니까? Y/N");
+        String ans = sc.nextLine();
+        if (ans.equals("Y")) {
+          System.out.println("시간 : "+time+" , 티켓비용 : "+ticketPrice);
+          System.out.println();
+
+          StringBuffer stringBuffer = new StringBuffer();
+          Date now = new Date();
+
+          SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+          simpleDateFormat.format(now, stringBuffer, new FieldPosition(0));
+          payDate=stringBuffer.toString();
+          System.out.println(payDate);
+
+          System.out.println("+------------------------------------------------+"); Thread.sleep(300);
+          System.out.println();Thread.sleep(300);
+          System.out.println("    \t\t[비트영화관]     ");Thread.sleep(300);
+          System.out.println();Thread.sleep(300);
+          System.out.println(" 영화제목 :"+title);Thread.sleep(300);
+          System.out.println();Thread.sleep(300);
+          System.out.println(" 상영일   :7월 "+date);Thread.sleep(300);
+          System.out.println(" 상영시간 :"+time);Thread.sleep(300);
+          System.out.println(" 좌석번호 :"+seat);Thread.sleep(300);
+          System.out.println();Thread.sleep(300);
+          System.out.println();Thread.sleep(300);
+          System.out.println("                  \t가격  :"+ticketPrice);Thread.sleep(300);
+          System.out.println("                  \t결제일:"+payDate);Thread.sleep(300);
+          System.out.println("+-----------------------------------------------+");Thread.sleep(300);
+
+          msg="insert into cinema values('"+title+"','"+date+"','"+time+"',"+ticketPrice+",'"+seat+"','"+payDate+"')";
+          ST=CN.createStatement();
+          int rs = ST.executeUpdate(msg);
+          return;
+        }else if(ans.equals("N")){
+          System.out.println("처음으로 돌아가시겠습니까?");
+          return;
+        }else {System.out.println("잘못입력했습니다.");}
+        continue;
+      }
+    }catch (Exception e) {System.out.println("에러이유: " + e);}
   }
 }
