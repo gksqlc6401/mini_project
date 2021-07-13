@@ -14,7 +14,7 @@ public class Cgv {
   ResultSet RS=null;  //select조회결과값 전체데이터를 기억합니다
   String msg="";
   int Gtotal = 0;  
-  static Scanner sc = new Scanner(System.in);
+
 
   public int floor; //층=행 3층
   public int room; 
@@ -25,8 +25,10 @@ public class Cgv {
   int ticketPrice;
   String seat;
   String payDate;
+  static Scanner sc = new Scanner(System.in);
 
   public static void main(String[] args) {
+
 
     System.out.println("\t\t\tC G V");
     System.out.println("\t\t영화 예매 프로그램"); 
@@ -36,20 +38,20 @@ public class Cgv {
     try { 
       loop: while(true) {
         System.out.print("[1.예매]   [2.전체 예매현황]   [9.종료]");
-        int sel = 9;
-        sel = Integer.parseInt(sc.nextLine());
+        String sel = "9";
+        sel = sc.nextLine();
         a.dbConnect();
 
         switch (sel) {
-          case 1:
+          case "1":
             a.getTitle(); 
             a.getDate();
             a.getTime();
             a.getSeat();
             a.pay(); break;
-          case 2:
+          case "2":
             a.dbSelect(); break;
-          case 9: System.out.println("영화표 예매 프로그램 종료하겠습니다."); break loop;
+          case "9": System.out.println("영화표 예매 프로그램 종료하겠습니다."); break loop;
           default : System.out.println("잘못입력하셨습니다."); continue;
         }
       }
@@ -59,8 +61,7 @@ public class Cgv {
   public void dbConnect() {
     try {
       Class.forName("oracle.jdbc.driver.OracleDriver"); //오라클드라이브로드
-      CN=DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe","system","1234");
-      System.out.println("오라클 드라이브및 서버연결성공");   
+      CN=DriverManager.getConnection("jdbc:oracle:thin:@127.0.0.1:1521:xe","system","1234");   
     }catch(Exception ex){System.out.println("error =" + ex);}
   }//end
 
@@ -140,29 +141,29 @@ public class Cgv {
         System.out.println("시간을 선택해주세요. 1 ~ 6 ");
         System.out.println();
 
-        int timeSelect = Integer.parseInt(sc.nextLine());
+        String timeSelect = sc.nextLine();
         switch (timeSelect) {
-          case 1 :
+          case "1":
             time = "AM 8:00 - 10:00";
             ticketPrice = 10000;
             break;
-          case 2:
+          case "2":
             time = "PM 10:00 - 12:00";
             ticketPrice = 10000;
             break;
-          case 3:
+          case "3":
             time = "PM 2:00- 4:00";
             ticketPrice = 14000;
             break;
-          case 4:
+          case "4":
             time = "PM 4:00 - 6:00";
             ticketPrice = 14000;
             break;
-          case 5:
+          case "5":
             time = "PM 8:00 - 10:00";
             ticketPrice = 12000;
             break;
-          case 6:  
+          case "6":  
             time = "PM 10:00 - 12:00";
             ticketPrice = 12000;
             break;
