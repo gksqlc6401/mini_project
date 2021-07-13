@@ -15,16 +15,9 @@ public class Cgv_Songyi {
   String msg="";
   int Gtotal = 0;  
 
-  public class SeatInfo{//seat정보를 담을 클래스 생성
 
-    public int arrayfloor; //층=행 3층
-    public int arrayroom; 
 
-  }
 
-  public int floor; //층=행 3층
-  public int room; 
-  public String[][] name = new String[6][10];
   String title;
   String time;
   String date;
@@ -37,18 +30,26 @@ public class Cgv_Songyi {
   public int atime;
 
   static Scanner sc = new Scanner(System.in);
-  SeatInfo[][][] arrayTest = new SeatInfo[3][7][6];//seat정보를 담을 배열 생성
+
+  static class SeatInfo{//seat정보를 배열별로 담을 클래스 생성
+    int floor; 
+    int room; 
+    String[][] name = new String[6][10];
+  }
+
+  static SeatInfo[][][] arrayTest = new SeatInfo[3][7][6];//seat정보를 담을 배열 생성
 
 
   public static void main(String[] args) {
-
 
     System.out.println("\t\t\tC G V");
     System.out.println("\t\t영화 예매 프로그램"); 
     System.out.println();
 
     Cgv_Songyi a = new Cgv_Songyi();
+
     try { 
+      a.arrayList();
       loop: while(true) {
         System.out.print("[1.예매]   [2.전체 예매현황]   [9.종료]");
         String sel = "9";
@@ -200,56 +201,73 @@ public class Cgv_Songyi {
     }  
   }
 
+  public void arrayList() {
+    //ArrayTest 배열 생성
+    for(int i = 0; i < 3; i++) {
+      for (int j = 0; j < 7; j++) {
+        for (int k = 0 ; k < 6; k++) {
+          arrayTest[i][j][k]=new SeatInfo();
+        }
+      }
+    }
+  }
+
   public void getSeat() {
+
 
     try {
       System.out.print("무슨열 선택하시겠습니까?(A~F층까지)>>> ");
       String row = sc.nextLine();
 
+
+
+
       switch(row) {
-        case "A" : floor=1; break;
-        case "B" : floor=2; break;
-        case "C" : floor=3; break;
-        case "D" : floor=4; break;
-        case "E" : floor=5; break;
-        case "F" : floor=6; break;
+        case "A" : arrayTest[atitle][adate][atime].floor=1; break;
+        case "B" : arrayTest[atitle][adate][atime].floor=2; break;
+        case "C" : arrayTest[atitle][adate][atime].floor=3; break;
+        case "D" : arrayTest[atitle][adate][atime].floor=4; break;
+        case "E" : arrayTest[atitle][adate][atime].floor=5; break;
+        case "F" : arrayTest[atitle][adate][atime].floor=6; break;
         default : System.out.println("다시입력해주세요"); break;
       }
-      if(floor <1  || floor >6) {
+
+      if(arrayTest[atitle][adate][atime].floor <1  || arrayTest[atitle][adate][atime].floor >6) {
         System.out.println("해당 열은 존재하지 않습니다");
       }
 
       System.out.print("몇 번을 선택 하시겠습니까?(1~10번까지)>>> ");
-      room = Integer.parseInt(sc.nextLine());
-      if(room < 1 || room >10) {
+      arrayTest[atitle][adate][atime].room = Integer.parseInt(sc.nextLine());
+      if(arrayTest[atitle][adate][atime].room < 1 || arrayTest[atitle][adate][atime].room >10) {
         System.out.println("해당 번호는 존재하지 않습니다");
       }
 
-      if(name[floor-1][room-1] == null) {
+      if(arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1] == null) {//name 배열에 값을 넣는 메소드 .. 값을 넣을 때 배열에 넣어두면 배열대로 저장됨.
         System.out.print("이름을 입력하세요>>> ");
-        name[floor-1][room-1] = sc.nextLine();
+        arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1] = sc.nextLine();
 
         System.out.println("객실 예약 완료");
       }else {
         System.out.println("이미 예약된 객실입니다");
+        //이미 예약되면 돌아가는 메소드 필요 return?
       }
       System.out.println("\n\t\t\t\t\t\t\t\t\t[ S C R E E N ]");
 
       String a= "ABCDEF";
       for(int i = 0; i < 6; i++){
         for(int j = 0; j < 10; j++){
-          if(name[i][j] == null) {
+          if(arrayTest[atitle][adate][atime].name[i][j] == null) {
 
             System.out.print(" " + (a.charAt(i))+(j+1) +"좌석"+"□\t"); 
           }else {
-            System.out.print( " " + (a.charAt(i))+(j+1) +"좌석"+"■ " + name[i][j]+"\t"); 
+            System.out.print( " " + (a.charAt(i))+(j+1) +"좌석"+"■ " + arrayTest[atitle][adate][atime].name[i][j]+"\t"); 
           }
         } //j end
         System.out.println();
       }//for i end
 
-      //배열로 선언한 부분 ! 인스턴스 변수로 선언 및 관리
-      seat=row+Integer.toString(room);
+      seat=row+Integer.toString(arrayTest[atitle][adate][atime].room);
+
     }catch (Exception e) {System.out.println("에러이유:"+ e);}//end
   }
 
@@ -289,10 +307,6 @@ public class Cgv_Songyi {
           msg="insert into cinema values('"+title+"','"+date+"','"+time+"',"+ticketPrice+",'"+seat+"','"+payDate+"')";
           ST=CN.createStatement();
           int rs = ST.executeUpdate(msg);
-
-          //arrayTest배열에 floor, room 정보 저장 (영화관 배열)
-          arrayTest[atitle][adate][atime].arrayfloor = floor;
-          arrayTest[atitle][adate][atime].arrayroom = room;
 
 
           return;
