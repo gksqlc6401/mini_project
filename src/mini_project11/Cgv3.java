@@ -2,7 +2,7 @@ package mini_project11;
 
 public class Cgv3 extends CgvHandler3 {
 
-
+  
 
   CgvArray[][][] arrayTest = new CgvArray[3][7][6];//seat정보를 담을 배열 생성
 

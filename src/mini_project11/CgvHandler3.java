@@ -213,6 +213,11 @@ public class CgvHandler3 {
   public void pay() {
     try {
       while(true) {
+        System.out.println("현대카드 20% 할인 받을수 있는데 받으시겠어요? Y/N");
+        String card = sc.nextLine();
+        if(card.equals("Y")) {
+
+        }
         System.out.print("결제 하시겠습니까? Y/N\n");
         String ans = sc.nextLine();
         if (ans.equals("Y")) {
@@ -244,9 +249,9 @@ public class CgvHandler3 {
           return;
         }else if(ans.equals("N")){
           System.out.println("처음으로 돌아 갑니다.\n");
-          arrayTest[atitle][adate][atime].floor=0;
-          arrayTest[atitle][adate][atime].room=0;
-          arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1]=null;
+
+          arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1] = null;
+
           return;
         }else {System.out.println("잘못입력했습니다.");}
         continue;
