@@ -213,14 +213,20 @@ public class CgvHandler3 {
   public void pay() {
     try {
       while(true) {
-        System.out.println("현대카드 20% 할인 받을수 있는데 받으시겠어요? Y/N");
+        System.out.print("현대카드 20% 할인 받을수 있는데 받으시겠어요? Y/N\n");
         String card = sc.nextLine();
+        double discount = 1;
         if(card.equals("Y")) {
+          System.out.println(""+(int)(ticketPrice*0.8)+"원 입니다\n");
+          discount=0.8;
+        }else if(card.equals("N")){
+          System.out.println("할인받지 않고 결제 하겠습니다");
+        }else {System.out.println("잘못입력했습니다. 다시입력 하세요"); continue;}
 
-        }
         System.out.print("결제 하시겠습니까? Y/N\n");
         String ans = sc.nextLine();
         if (ans.equals("Y")) {
+          ticketPrice = (int)(ticketPrice * discount);
           System.out.println("시간 : "+time+" , 티켓비용 : "+ticketPrice);
           System.out.println();
           StringBuffer stringBuffer = new StringBuffer();
