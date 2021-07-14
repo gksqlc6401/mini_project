@@ -310,6 +310,8 @@ public class Cgv_Songyi {
           return;
         }else if(ans.equals("N")){
           System.out.println("처음으로 돌아가시겠습니까?");
+          //seat값 초기화 하는 작업 필요!
+
           return;
         }else {System.out.println("잘못입력했습니다.");}
         continue;
