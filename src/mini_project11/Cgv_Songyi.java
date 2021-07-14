@@ -16,8 +16,6 @@ public class Cgv_Songyi {
   int Gtotal = 0;  
 
 
-
-
   String title;
   String time;
   String date;
