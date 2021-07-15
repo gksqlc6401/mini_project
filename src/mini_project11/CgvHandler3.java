@@ -34,6 +34,7 @@ public class CgvHandler3 {
   String jmsg="";
   String msg1="";
   String aid;
+  String a;
   int apoint;
   int ppoint=0;
   public int atitle;
@@ -93,7 +94,7 @@ public class CgvHandler3 {
   public void join() {
     try {
       while(true) {
-        System.out.print("아이디를 입력해주세요:(6자이하) ");//아이디 중복체크 ex)이미 등록된 아이디입니다.
+        System.out.print("아이디를 입력해주세요:(6자이하) ");
         jid = sc.nextLine();
 
         ST = CN.createStatement();
@@ -231,6 +232,21 @@ public class CgvHandler3 {
   public void getSeat() {
     try {
       while(true) {
+
+        System.out.println("\n\t\t\t\t\t\t\t\t\t[ S C R E E N ]");
+        System.out.println();
+        String a= "ABCDEF";
+        for(int i = 0; i < 6; i++) {
+          for(int j = 0; j < 10; j++) {
+            if(arrayTest[atitle][adate][atime].name[i][j] == null) {
+              System.out.print(" " + (a.charAt(i))+(j+1) +"좌석"+"□\t"); 
+            } else {
+              System.out.print( " " + (a.charAt(i))+(j+1) +"좌석"+"■ " + arrayTest[atitle][adate][atime].name[i][j]+"\t"); 
+            }
+          } //j end
+          System.out.println();
+        }//for i end
+
         System.out.print("어느 열을 선택하시겠습니까?(A열 ~ F열)>> ");
         String row = sc.nextLine();
         switch(row) {
@@ -253,17 +269,18 @@ public class CgvHandler3 {
 
         if(arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1] == null) {//name 배열에 값을 넣는 메소드 .. 값을 넣을 때 배열에 넣어두면 배열대로 저장됨.
           System.out.println();
-          System.out.print("이름을 입력하세요.>> ");
+          //        System.out.print("이름을 입력하세요.>> ");
           arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1] = sc.nextLine();
           System.out.println();
-          System.out.println("좌석 예약 완료"); 
+          System.out.println("좌석 예약 완료\n"); 
+          System.out.println("선택하신 좌석은 "+row+arrayTest[atitle][adate][atime].room+"입니다." );
         } else {
           System.out.println("이미 예약된 좌석입니다.\n"); continue;
         }
 
         System.out.println("\n\t\t\t\t\t\t\t\t\t[ S C R E E N ]");
         System.out.println();
-        String a= "ABCDEF";
+        a= "ABCDEF";
         for(int i = 0; i < 6; i++) {
           for(int j = 0; j < 10; j++) {
             if(arrayTest[atitle][adate][atime].name[i][j] == null) {
