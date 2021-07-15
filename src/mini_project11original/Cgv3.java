@@ -1,4 +1,4 @@
-package mini_project11;
+package mini_project11original;
 
 public class Cgv3 extends CgvHandler3 {
 
@@ -12,25 +12,20 @@ public class Cgv3 extends CgvHandler3 {
     try { 
       a.arrayList();
       loop: while(true) {
-        System.out.print("[1.회원가입]    [2. 예매]    [3. 전체 예매 현황]    [4.회원목록 조회]   [9. 종료] ");
+        System.out.print("[1. 예매]   [2. 전체 예매 현황]   [9. 종료] ");
         String sel = "9";
         sel = sc.nextLine();
         a.dbConnect();
         //a.screen();
         switch (sel) {
           case "1":
-            a.join(); break;
-          case "2":
             a.getTitle(); 
             a.getDate();
             a.getTime();
             a.getSeat();
             a.pay(); break;
-          case "3":
+          case "2":
             a.dbSelect(); break;
-          case "4":
-            a.jselect(); break;
-
           case "9": System.out.println(); 
           System.out.println("영화 예매 프로그램 종료하겠습니다."); break loop;
           default : System.out.println("잘못 입력하셨습니다. 다시 입력해 주세요.\n"); continue;

@@ -1,4 +1,4 @@
-package mini_project11;
+package mini_project11_1;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,12 +30,6 @@ public class CgvHandler3 {
   int ticketPrice;
   String seat;
   String payDate;
-  String smsg="";
-  String jmsg="";
-  String msg1="";
-  String aid;
-  int apoint;
-  int ppoint=0;
   public int atitle;
   public int adate;
   public int atime;
@@ -76,8 +70,8 @@ public class CgvHandler3 {
       System.out.println();
       Thread.sleep(500);
       ST = CN.createStatement();
-      smsg ="select * from cinema";
-      ResultSet rs = ST.executeQuery(smsg);
+      msg ="select * from cinema";
+      ResultSet rs = ST.executeQuery(msg);
       while(rs.next()==true) {
         String stitle = rs.getString("title");
         String sdate = rs.getString("mdate");
@@ -92,29 +86,16 @@ public class CgvHandler3 {
   }
   public void join() {
     try {
-      while(true) {
-        System.out.print("아이디를 입력해주세요:(6자이하) ");//아이디 중복체크 ex)이미 등록된 아이디입니다.
-        jid = sc.nextLine();
+      System.out.print("아이디를 입력해주세요:(6자이하) ");
+      jid = sc.nextLine();
+      System.out.print("비밀번호를 입력해주세요:(6자이하) ");
+      jpw = sc.nextLine();
+      System.out.print("이름을 입력해주세요:(한글로3자이하) ");
+      jname = sc.nextLine();
 
-        ST = CN.createStatement();
-        String imsg ="select mid from member where mid='"+jid+"'";
-        ResultSet rs = ST.executeQuery(imsg);
-        if(rs.next()==true) {
-          System.out.println("이미 사용중인 아이디입니다 다시 입력해주세요\n"); continue;
-        }else {System.out.println("사용할 수 있는 아이디 입니다.\n");}
-
-        System.out.print("비밀번호를 입력해주세요:(6자이하) ");
-        jpw = sc.nextLine();
-        System.out.print("이름을 입력해주세요:(한글로3자이하) ");
-        jname = sc.nextLine();
-
-        jmsg="insert into member(mid, mpw, mname ) values('"+jid+"','"+jpw+"','"+jname+"')";
-        ST=CN.createStatement();
-        ST.executeUpdate(jmsg);
-        System.out.println();
-        System.out.println("\t\t\t[회원 등록이 완료 되었습니다.]\n"); break;
-
-      }
+      msg="insert into member(mid, mpw, mname ) values('"+jid+"','"+jpw+"','"+jname+"')";
+      ST=CN.createStatement();
+      ST.executeUpdate(msg);
     }catch (Exception e) {System.out.println("에러이유 :" + e);}
   }
 
@@ -295,81 +276,48 @@ public class CgvHandler3 {
           System.out.println();
         } else {System.out.println("잘못 입력했습니다. 다시 입력하세요."); continue;}
 
-        while(true) {
-          System.out.print("포인트 적립 하시겠어요? Y / N ");
-          String point = sc.nextLine();
-          if (point.equals("Y")) {
-            System.out.println("아이디를 입력하세요: ");
-            aid = sc.nextLine();
+        System.out.print("결제하시겠습니까? Y / N ");
+        String ans = sc.nextLine();
+        if (ans.equals("Y")) {
+          ticketPrice = (int)(ticketPrice * discount);
+          System.out.println();
+          System.out.println("시간: "+time+", 티켓비용: "+ticketPrice+"원");
+          System.out.println();
+          StringBuffer stringBuffer = new StringBuffer();
+          Date now = new Date();
+          SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+          simpleDateFormat.format(now, stringBuffer, new FieldPosition(0));
+          payDate=stringBuffer.toString();
+          System.out.println(payDate);
+          System.out.println();
+          System.out.println("+------------------------------------------------+"); Thread.sleep(300);
+          System.out.println();Thread.sleep(300);
+          System.out.println("    \t\t[비트영화관]     ");Thread.sleep(300);
+          System.out.println();Thread.sleep(300);
+          System.out.println(" 영화제목: "+title);Thread.sleep(300);
+          System.out.println();Thread.sleep(300);
+          System.out.println(" 상영일  : 7월 "+date);Thread.sleep(300);
+          System.out.println(" 상영시간: "+time);Thread.sleep(300);
+          System.out.println(" 좌석번호: "+seat);Thread.sleep(300);
+          System.out.println();Thread.sleep(300);
+          System.out.println();Thread.sleep(300);
+          System.out.println("                \t가격  : "+ticketPrice+"원");Thread.sleep(300);
+          System.out.println("                \t결제일: "+payDate);Thread.sleep(300);
+          System.out.println();
+          System.out.println("+------------------------------------------------+");Thread.sleep(300);
+          System.out.println();
+          msg="insert into cinema values('"+title+"','"+date+"','"+time+"',"+ticketPrice+",'"+seat+"','"+payDate+"')";
+          ST=CN.createStatement();
+          ST.executeUpdate(msg);
+          return;
+        } else if(ans.equals("N")){
+          System.out.println("처음으로 돌아갑니다.\n");
 
-            ST = CN.createStatement();
-            String imsg ="select mid from member where mid='"+aid+"'";
-            ResultSet idrs = ST.executeQuery(imsg);
-            if(idrs.next()==true) {
+          arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1] = null;
 
-              apoint=(int)(ticketPrice*0.1);
-              System.out.println("추가될 포인트는"+apoint+ "점입니다.\n");
-
-              ST = CN.createStatement();
-              String pmsg ="select mpoint from member where mid='"+aid+"'";
-              ResultSet rs = ST.executeQuery(pmsg);
-              while(rs.next()==true) {
-                ppoint = (rs.getInt("mpoint") + apoint);
-              }
-            }else {System.out.println("존재하지 않는 아이디 입니다. 다시 입력해주세요"); continue;}
-
-          }else if(point.equals("N")){
-            System.out.println("포인트 적립하지 않고 결제하겠습니다.");
-            System.out.println();
-          } else {System.out.println("잘못 입력했습니다. 다시 입력하세요."); continue;}
-
-          System.out.print("결제하시겠습니까? Y / N ");
-          String ans = sc.nextLine();
-          if (ans.equals("Y")) {
-            ticketPrice = (int)(ticketPrice * discount);
-            System.out.println();
-            System.out.println("시간: "+time+", 티켓비용: "+ticketPrice+"원");
-            System.out.println();
-            StringBuffer stringBuffer = new StringBuffer();
-            Date now = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            simpleDateFormat.format(now, stringBuffer, new FieldPosition(0));
-            payDate=stringBuffer.toString();
-
-            System.out.println(payDate);
-            System.out.println();
-            System.out.println("+------------------------------------------------+"); Thread.sleep(300);
-            System.out.println();Thread.sleep(300);
-            System.out.println("    \t\t[비트영화관]     ");Thread.sleep(300);
-            System.out.println();Thread.sleep(300);
-            System.out.println(" 영화제목: "+title);Thread.sleep(300);
-            System.out.println();Thread.sleep(300);
-            System.out.println(" 상영일  : 7월 "+date);Thread.sleep(300);
-            System.out.println(" 상영시간: "+time);Thread.sleep(300);
-            System.out.println(" 좌석번호: "+seat);Thread.sleep(300);
-            System.out.println();Thread.sleep(300);
-            System.out.println();Thread.sleep(300);
-            System.out.println("                \t포인트: "+ppoint+"점");Thread.sleep(300);
-            System.out.println("                \t가격  : "+ticketPrice+"원");Thread.sleep(300);
-            System.out.println("                \t결제일: "+payDate);Thread.sleep(300);
-            System.out.println();
-            System.out.println("+------------------------------------------------+");Thread.sleep(300);
-            System.out.println();
-            msg="insert into cinema values('"+title+"','"+date+"','"+time+"',"+ticketPrice+",'"+seat+"','"+payDate+"')";
-            msg1="update member set mpoint=mpoint+"+apoint+" where mid="+"'"+aid+"'";
-            ST=CN.createStatement();
-            ST.executeUpdate(msg);
-            ST.executeUpdate(msg1);
-            return;
-          } else if(ans.equals("N")){
-            System.out.println("처음으로 돌아갑니다.\n");
-
-            arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1] = null;
-
-            return;
-          } else {System.out.println("잘못 입력했습니다. 다시 입력하세요.");}
-          continue;
-        }
+          return;
+        } else {System.out.println("잘못 입력했습니다. 다시 입력하세요.");}
+        continue;
       }
     }catch (Exception e) {System.out.println("에러 이유: " + e);}
   }
