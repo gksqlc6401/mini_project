@@ -86,7 +86,7 @@ public class CgvHandler3 {
         int sticketPrice = rs.getInt("price");
         String sseat = rs.getString("seat");
         String spaydate = rs.getString("paydate");
-        System.out.println(stitle +"\t" + sdate+"\t" + stime+"\t" + sticketPrice+"\t" + sseat+"\t"+spaydate);
+        System.out.println(stitle +"\t\t" + sdate+"\t" + stime+"\t" + sticketPrice+"\t" + sseat+"\t"+spaydate);
       }
       System.out.println();
     }catch(Exception ex) { System.out.println("에러 이유 " + ex);} 
@@ -106,7 +106,7 @@ public class CgvHandler3 {
 
         System.out.print("비밀번호를 입력해주세요:(6자이하) ");
         jpw = sc.nextLine();
-        System.out.print("이름을 입력해주세요:(한글로3자이하) ");
+        System.out.print("이름을 입력해주세요:(한글로4자이하) ");
         jname = sc.nextLine();
 
         jmsg="insert into member(mid, mpw, mname ) values('"+jid+"','"+jpw+"','"+jname+"')";
@@ -157,7 +157,7 @@ public class CgvHandler3 {
           System.out.println("다시 입력해 주세요."); continue;
         }
         System.out.println();
-        System.out.println("7월 "+date+"로 예약 완료\n");
+        System.out.println("7월 "+date+"로 예약 진행중...\n"); Thread.sleep(300);
         break;
       }
     } catch(Exception ex) { System.out.println("error = " + ex);} 
@@ -269,10 +269,9 @@ public class CgvHandler3 {
 
         if(arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1] == null) {//name 배열에 값을 넣는 메소드 .. 값을 넣을 때 배열에 넣어두면 배열대로 저장됨.
           System.out.println();
-          //        System.out.print("이름을 입력하세요.>> ");
-          arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1] = sc.nextLine();
+          arrayTest[atitle][adate][atime].name[arrayTest[atitle][adate][atime].floor-1][arrayTest[atitle][adate][atime].room-1] = "";
           System.out.println();
-          System.out.println("좌석 예약 완료\n"); 
+          System.out.println("좌석 선택 완료\n"); 
           System.out.println("선택하신 좌석은 "+row+arrayTest[atitle][adate][atime].room+"입니다." );
         } else {
           System.out.println("이미 예약된 좌석입니다.\n"); continue;

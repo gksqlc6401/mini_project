@@ -11,12 +11,11 @@ public class Cgv3 extends CgvHandler3 {
     Cgv3 a = new Cgv3();
     try { 
       a.arrayList();
+      a.dbConnect();
       loop: while(true) {
         System.out.print("[1.회원가입]    [2. 예매]    [3. 전체 예매 현황]    [4.회원목록 조회]   [9. 종료] ");
         String sel = "9";
         sel = sc.nextLine();
-        a.dbConnect();
-        //a.screen();
         switch (sel) {
           case "1":
             a.join(); break;
