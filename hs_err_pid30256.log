@@ -1,0 +1,196 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 132120576 bytes for Failed to commit area from 0x0000000082200000 to 0x000000008a000000 of length 132120576.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (./src/hotspot/os/windows/os_windows.cpp:3301), pid=30256, tid=22500
+#
+# JRE version:  (11.0.11+8) (build )
+# Java VM: OpenJDK 64-Bit Server VM (11.0.11+8-jvmci-21.1-b05, mixed mode, sharing, tiered, jvmci, jvmci compiler, compressed oops, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -XX:ThreadPriorityPolicy=1 -Dfile.encoding=UTF-8 --module-path=C:\Users\ksi64\eclipse-workspace\ojdbc6.jar mini_project11.Cgv3
+
+Host: Intel(R) Pentium(R) CPU 4415U @ 2.30GHz, 4 cores, 7G,  Windows 10 , 64 bit Build 19041 (10.0.19041.1023)
+Time: Mon Jul 19 16:21:52 2021 대한민국 표준시 elapsed time: 0.044579 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x000001af0811a800):  JavaThread "Unknown thread" [_thread_in_vm, id=22500, stack(0x0000005720100000,0x0000005720200000)]
+
+Stack: [0x0000005720100000,0x0000005720200000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6152ea]
+V  [jvm.dll+0x74e25e]
+V  [jvm.dll+0x74f92f]
+V  [jvm.dll+0x74fff3]
+V  [jvm.dll+0x23bed8]
+V  [jvm.dll+0x61252a]
+V  [jvm.dll+0x607025]
+V  [jvm.dll+0x2f171c]
+V  [jvm.dll+0x2f15a2]
+V  [jvm.dll+0x2f6256]
+V  [jvm.dll+0x33ac8f]
+V  [jvm.dll+0x33a6c0]
+V  [jvm.dll+0x2ce9a8]
+V  [jvm.dll+0x2cfaf6]
+V  [jvm.dll+0x729967]
+V  [jvm.dll+0x72b23f]
+V  [jvm.dll+0x3479f9]
+V  [jvm.dll+0x70c9c0]
+V  [jvm.dll+0x3af87f]
+V  [jvm.dll+0x3b1da1]
+C  [jli.dll+0x520b]
+C  [ucrtbase.dll+0x21bb2]
+C  [KERNEL32.DLL+0x17034]
+C  [ntdll.dll+0x52651]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x000001af06770b90, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x000001af08133800 GCTaskThread "GC Thread#0" [stack: 0x0000005720200000,0x0000005720300000] [id=9676]
+  0x000001af08163800 ConcurrentGCThread "G1 Main Marker" [stack: 0x0000005720300000,0x0000005720400000] [id=21864]
+  0x000001af08166000 ConcurrentGCThread "G1 Conc#0" [stack: 0x0000005720400000,0x0000005720500000] [id=30292]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007ffac484e087]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x000001af081180e0] Heap_lock - owner thread: 0x000001af0811a800
+
+Heap address: 0x0000000082200000, size: 2014 MB, Compressed Oops mode: Non-zero based: 0x0000000082200000
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (1 events):
+Event: 0.027 Loaded shared library C:\bitcamp\graalvm-ce-java11-21.1.0\bin\zip.dll
+
+
+Dynamic libraries:
+0x00007ff7eaa10000 - 0x00007ff7eaa1d000 	C:\bitcamp\graalvm-ce-java11-21.1.0\bin\javaw.exe
+0x00007ffb17050000 - 0x00007ffb17245000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffb16f50000 - 0x00007ffb1700d000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffb14bd0000 - 0x00007ffb14e98000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffb14790000 - 0x00007ffb14890000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ffb0eca0000 - 0x00007ffb0ecb7000 	C:\bitcamp\graalvm-ce-java11-21.1.0\bin\jli.dll
+0x00007ffb16340000 - 0x00007ffb164e0000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffb14f80000 - 0x00007ffb14fa2000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffb16ac0000 - 0x00007ffb16aea000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffb14960000 - 0x00007ffb14a6b000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffb148c0000 - 0x00007ffb1495d000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ffb06e70000 - 0x00007ffb06e85000 	C:\bitcamp\graalvm-ce-java11-21.1.0\bin\VCRUNTIME140.dll
+0x00007ffafdf60000 - 0x00007ffafe1fa000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1052_none_60b8f8fd71f5e8cb\COMCTL32.dll
+0x00007ffb15d40000 - 0x00007ffb15dde000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffb16ce0000 - 0x00007ffb16d10000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffaf1640000 - 0x00007ffaf16db000 	C:\bitcamp\graalvm-ce-java11-21.1.0\bin\msvcp140.dll
+0x00007ffac4570000 - 0x00007ffac506f000 	C:\bitcamp\graalvm-ce-java11-21.1.0\bin\server\jvm.dll
+0x00007ffb16ea0000 - 0x00007ffb16f4c000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffb150c0000 - 0x00007ffb1515b000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffb16d70000 - 0x00007ffb16e9b000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffb15de0000 - 0x00007ffb15de8000 	C:\WINDOWS\System32\PSAPI.DLL
+0x00007ffb01710000 - 0x00007ffb01719000 	C:\WINDOWS\SYSTEM32\WSOCK32.dll
+0x00007ffb16a50000 - 0x00007ffb16abb000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffb07620000 - 0x00007ffb0762a000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffb075f0000 - 0x00007ffb07617000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffb130b0000 - 0x00007ffb130c2000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffb05220000 - 0x00007ffb05230000 	C:\bitcamp\graalvm-ce-java11-21.1.0\bin\verify.dll
+0x00007ffb12d70000 - 0x00007ffb12f54000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffb08500000 - 0x00007ffb0852c000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffb14ef0000 - 0x00007ffb14f73000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ffaf22a0000 - 0x00007ffaf22c8000 	C:\bitcamp\graalvm-ce-java11-21.1.0\bin\java.dll
+0x00007ffb04260000 - 0x00007ffb0426a000 	C:\bitcamp\graalvm-ce-java11-21.1.0\bin\jimage.dll
+0x00007ffb01350000 - 0x00007ffb01367000 	C:\bitcamp\graalvm-ce-java11-21.1.0\bin\zip.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\bitcamp\graalvm-ce-java11-21.1.0\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.1052_none_60b8f8fd71f5e8cb;C:\bitcamp\graalvm-ce-java11-21.1.0\bin\server
+
+VM Arguments:
+jvm_args: -XX:+UnlockExperimentalVMOptions -XX:+EnableJVMCIProduct -XX:-UnlockExperimentalVMOptions -XX:ThreadPriorityPolicy=1 -Dfile.encoding=UTF-8 --module-path=C:\Users\ksi64\eclipse-workspace\ojdbc6.jar 
+java_command: mini_project11.Cgv3
+java_class_path (initial): C:\Users\ksi64\git\mini_project\bin
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 3                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     bool EnableJVMCIProduct                       = true                                {JVMCI product} {jimage}
+     uint G1ConcRefinementThreads                  = 4                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 132120576                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2111832064                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5830732                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 164856794                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 164856794                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 335544320                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     intx ThreadPriorityPolicy                     = 1                                         {product} {jimage}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=C:\bitcamp\graalvm-ce-java11-21.1.0
+PATH=C:/bitcamp/graalvm-ce-java11-21.1.0/bin/server;C:/bitcamp/graalvm-ce-java11-21.1.0/bin;C:\oraclexe\app\oracle\product\11.2.0\server\bin;;C:\bitcamp\graalvm-ce-java11-21.1.0\bin;C:\Program Files (x86)\VMware\VMware Player\bin\;C:\ProgramData\Anaconda3;C:\ProgramData\Anaconda3\Library\mingw-w64\bin;C:\ProgramData\Anaconda3\Library\usr\bin;C:\ProgramData\Anaconda3\Library\bin;C:\ProgramData\Anaconda3\Scripts;C:\Program Files\Java\jdk1.8.0_221\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\WINDOWS\system32;C:\bitcamp\graalvm-ce-java11-21.1.0\bin;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Java\jdk1.8.0_221\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\bitcamp\mingw64\bin;C:\Program Files\Git\cmd;C:\bitcamp\gradle-7.0.2\bin;"C:\Program Files\Java\jdk1.8.0_221\bin;C:\Users\ksi64\AppData\Local\Microsoft\WindowsApps";C:\Users\ksi64\AppData\Local\Microsoft\WindowsApps;C:\Users\ksi64\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\ksi64\AppData\Roaming\npm;C:\Program Files (x86)\ESTsoft\ALSee\x64;C:\Users\ksi64\eclipse\jee-latest-released\eclipse;
+USERNAME=ksi64
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 142 Stepping 9, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10 , 64 bit Build 19041 (10.0.19041.1023)
+OS uptime: 6 days 6:34 hours
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 142 stepping 9 microcode 0xb4, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit
+
+Memory: 4k page, system-wide physical 8051M (412M free)
+TotalPageFile size 21153M (AvailPageFile size 66M)
+current process WorkingSet (physical memory assigned to process): 10M, peak: 10M
+current process commit charge ("private bytes"): 82M, peak: 208M
+
+vm_info: OpenJDK 64-Bit Server VM (11.0.11+8-jvmci-21.1-b05) for windows-amd64 JRE (11.0.11+8-jvmci-21.1-b05), built on Apr 12 2021 17:01:18 by "" with MS VC++ 15.9 (VS2017)
+
+END.

@@ -59,6 +59,8 @@ public class CgvHandler3 {
       ST = CN.createStatement();
       msg ="select * from member";
       ResultSet rs = ST.executeQuery(msg);
+      System.out.println("I D" +"\t" + "PW"+"\t" + "Name"+"\t" + "Point");
+      System.out.println("------------------------------------------");
       while(rs.next()==true) {
         String jid = rs.getString("mid");
         String jpw = rs.getString("mpw");
@@ -79,6 +81,8 @@ public class CgvHandler3 {
       ST = CN.createStatement();
       smsg ="select * from cinema";
       ResultSet rs = ST.executeQuery(smsg);
+      System.out.println("제 목" +"\t\t\t" + "날 짜"+"\t" + "시 간"+"\t\t" + "가 격"+"\t" + "좌 석"+"\t"+"결 제 일");
+      System.out.println("-------------------------------------------------------------------------------------");
       while(rs.next()==true) {
         String stitle = rs.getString("title");
         String sdate = rs.getString("mdate");
@@ -123,13 +127,13 @@ public class CgvHandler3 {
     try {
       while(true) {
         System.out.println();
-        System.out.println("[1. 괴물]     [2. 어벤져스: 엔드게임]     [3. 극한직업]\n");
+        System.out.println("[1. 신과함께]     [2. 어벤져스]     [3. 극한직업]\n");
         System.out.print("관람하실 영화의 번호를 입력하세요.>> ");
         title =sc.nextLine();
         System.out.println();
         switch(title) {
-          case "1": title="괴물"; atitle=0; break;
-          case "2": title="어벤져스: 엔드게임"; atitle=1; break;
+          case "1": title="신과함께"; atitle=0; break;
+          case "2": title="어벤져스"; atitle=1; break;
           case "3": title="극한직업"; atitle=2; break;
           default : System.out.println("다시 선택해 주세요."); continue;
         }
